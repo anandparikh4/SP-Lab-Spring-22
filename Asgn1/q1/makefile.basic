@@ -1,0 +1,39 @@
+CC = gcc
+CFLAGs = -Wall
+PIC = -fPIC -c
+OBJ = llist.o stack.o queue.o heap.o union_find.o 
+LIBNAME = libdynamic.so
+LIBDIR = /usr/include/lib
+HEADERS = defs.h llist.h stack.h queue.h heap.h union_find.h
+H_DIR = /usr/include/lib/headers
+
+$(LIBNAME) : $(OBJ)
+	gcc -shared -o $(LIBNAME) $(OBJ)
+
+llist.o : defs.h llist.h llist.c
+	gcc $(PIC) llist.c
+	
+stack.o : defs.h llist.h stack.h stack.c
+	gcc $(PIC) stack.c 
+	
+queue.o : defs.h llist.h queue.h queue.c
+	gcc $(PIC) queue.c
+	
+heap.o : heap.h heap.c
+	gcc $(PIC) heap.c
+	
+union_find.o : union_find.h union_find.c
+	gcc $(PIC) union_find.c
+	
+install : $(LIBNAME) 
+	-sudo mkdir $(LIBDIR)
+	sudo cp $(LIBNAME) $(LIBDIR)
+	export LD_LIBRARY_PATH=$(LIB_PATH)
+	-sudo mkdir $(H_DIR)
+	sudo cp $(HEADERS) $(H_DIR)
+	
+clean :
+	rm -f $(OBJ)
+	
+distclean :
+	rm -f $(OBJ) $(LIBNAME)

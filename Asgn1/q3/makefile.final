@@ -1,0 +1,5 @@
+CC = gcc
+FILENAME = graph.out
+
+execute :
+	gcc -Wall -o $(FILENAME) -L/usr/include/lib main.c -lstatic -ldynamic

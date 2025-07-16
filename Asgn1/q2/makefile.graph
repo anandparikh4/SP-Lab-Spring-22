@@ -1,0 +1,27 @@
+CC = gcc
+CFLAGS = -Wall
+LIBNAME = libstatic.a
+LIBDIR = /usr/include/lib
+H_DIR = /usr/include/lib/headers
+
+$(LIBNAME) : graph.o 
+	ar rcs $(LIBNAME) graph.o 
+	
+graph.o : graph.h graph.c
+	gcc -Wall -c graph.c
+	
+install : $(LIBNAME)
+	-sudo mkdir $(LIBDIR)
+	sudo cp $(LIBNAME) $(LIBDIR)
+	-sudo mkdir $(H_DIR)
+	sudo cp graph.h $(H_DIR)
+	
+clean :
+	rm -f graph.o
+	
+distclean : 
+	rm -f graph.o $(LIBNAME)
+	
+	
+	
+
